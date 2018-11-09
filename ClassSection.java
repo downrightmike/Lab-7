@@ -17,10 +17,11 @@ public class ClassSection{
     private String departmentCode;
     private String meetingDays;
     private String meetingTimes;
+    //add an ArrayList of student enrollees to the class section class.
+    private List<Student> studentList = new ArrayList<Student>();
 
     public ClassSection(){ 
         //System.out.println("\nIn ClassSection() default constructor"); // Just to show we're here.
-
     this.CRN = 0;
     this.courseNumber = 0;
     this.capacity = 0;
@@ -31,11 +32,10 @@ public class ClassSection{
     this.departmentCode = "";
     this.meetingDays = "";
     this.meetingTimes = "";
-   
     }
+
     public ClassSection(Integer newCRN, Integer newCourseNumber, Integer newCapacity, Integer newEnrollment, Integer newInstructorID, String newMode, String newCampus, String newDepartmentCode, String newMeetingDays, String newMeetingTimes){ 
         //System.out.println("\nIn ClassSection() all params constructor"); // Just to show we're here.
-    
         this.CRN = newCRN;
         this.courseNumber = newCourseNumber;
         this.capacity = newCapacity;
@@ -47,7 +47,7 @@ public class ClassSection{
         this.meetingDays = newMeetingDays;
         this.meetingTimes = newMeetingTimes;
     }
-          // Define "setter" a.k.a. mutator methods.
+        // Define "setter" a.k.a. mutator methods.
    public void  setCRN( Integer newCRN ){
     this.CRN = newCRN ; //return this.CRN; 
 }
@@ -154,7 +154,19 @@ public class ClassSection{
            else{this.meetingTimes = newMeetingTimes ;  //return this.meetingTimes;
         }
        }
-    
+///////End of Class Setters///////////
+
+///////Start of Student Setters///////
+    //A method, let’s call it addStudent, to add an individual student to the enrollee list
+    public void addStudent(Integer studentID){}//end of addStudent
+
+    // A method to withdraw a student
+    public void dropStudent(Integer studentID){}//end of dropStudent
+
+    //A method to assign a grade to a student
+    public void gradeStudent(Integer studentID, int grade){}//end of dropStudent
+
+///////End of Student Setters/////////
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
     // Define "getter" a.k.a. accessor methods.
@@ -178,9 +190,20 @@ public class ClassSection{
         return this.meetingDays;  }
        public String getMeetingTimes(){
         return this. meetingTimes ;  }
-    
-    
+///////End of Class Getters///////////
 
+///////Start of Student Getters///////
+//A method to locate the ArrayList element which holds (actually points to) the 
+//enrollee object that has a particular student ID
+    public Integer getStudentID(){
+    return this.studentID ;  }
+
+   // A method to display a list of enrollees
+   public void displayStudentList(){
+    return this.studentID ;  }
+///////End of Student Getters/////////
+
+///////toString Override//////////////
     public String toString(){
         StringBuffer strBuf = new StringBuffer("Class Section Data: \n");
         
