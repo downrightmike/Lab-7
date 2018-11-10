@@ -31,6 +31,8 @@ public class Lab_7_Driver_MB {
         //ClassSection class2 = new ClassSection(20009, 182, 31, 31, 664, "hybrid", "East", "CIS", "1245", "12:00p - 2:50p" );
         //ClassSection class2 = new ClassSection(20009, 182, 31, 31, 664, "hybrid", "East", "CIS", "1234567", "12:00p - 2:50p" );
         ClassSection class2 = new ClassSection(20009, 182, 31, 31, 664, "hybrid", "East", "CIS", "3456712", "12:00p - 2:50p" );
+        //New Student class added
+        ClassSection class3 = new ClassSection(20009, 182, 31, 31, 664, "hybrid", "East", "CIS", "3456712", "12:00p - 2:50p", 10000, 3);
         
  
         //3) After doing this, the driver will use either println or printf to display the String returned by toString.
@@ -38,6 +40,8 @@ public class Lab_7_Driver_MB {
         System.out.println("class1: \n" + class1.toString());
         //5) Again, it will it will use either println or printf to display the String returned by toString.
         System.out.println("class2: \n" + class2.toString());
+        //New Student class added
+        System.out.println("class3: \n" + class3.toString());
       
 ////testing the getters///////////////////////////////////////////////////////////////////
        //System.out.println(class1.getMeetingTimes());

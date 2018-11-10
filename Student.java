@@ -21,7 +21,7 @@ public Student(Integer newStudentID, int newGrade){
 }//end of Student loaded constructor
 
 //////////////////////Define Setter mutator methods//////////////
-public void setStudentID(Integer newStudentID){
+public void addStudent(Integer newStudentID){
     this.studentID = newStudentID;
 }
 public void setGrade(int newGrade){

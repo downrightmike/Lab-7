@@ -19,6 +19,8 @@ public class ClassSection{
     private String meetingTimes;
     //add an ArrayList of student enrollees to the class section class.
     private List<Student> studentList = new ArrayList<Student>();
+    //Add Student object
+    private Student studentobj;
 
     public ClassSection(){ 
         //System.out.println("\nIn ClassSection() default constructor"); // Just to show we're here.
@@ -32,9 +34,12 @@ public class ClassSection{
     this.departmentCode = "";
     this.meetingDays = "";
     this.meetingTimes = "";
+    //Add student object
+    studentObj = new Student();
     }
 
-    public ClassSection(Integer newCRN, Integer newCourseNumber, Integer newCapacity, Integer newEnrollment, Integer newInstructorID, String newMode, String newCampus, String newDepartmentCode, String newMeetingDays, String newMeetingTimes){ 
+    //create an instance of a ClassSection class that accepts hard coded values for all parameters.
+    public ClassSection(Integer newCRN, Integer newCourseNumber, Integer newCapacity, Integer newEnrollment, Integer newInstructorID, String newMode, String newCampus, String newDepartmentCode, String newMeetingDays, String newMeetingTimes, Integer studentID, int grade){ 
         //System.out.println("\nIn ClassSection() all params constructor"); // Just to show we're here.
         this.CRN = newCRN;
         this.courseNumber = newCourseNumber;
@@ -46,6 +51,7 @@ public class ClassSection{
         this.departmentCode = newDepartmentCode;
         this.meetingDays = newMeetingDays;
         this.meetingTimes = newMeetingTimes;
+        studentObj = new Student(studentID, grade);
     }
         // Define "setter" a.k.a. mutator methods.
    public void  setCRN( Integer newCRN ){
@@ -158,13 +164,28 @@ public class ClassSection{
 
 ///////Start of Student Setters///////
     //A method, let’s call it addStudent, to add an individual student to the enrollee list
-    public void addStudent(Integer studentID){}//end of addStudent
-
+    //create a public addStudent method of the ClassSection class which will pass the Student 
+    //object to the add method of the ArrayList class.
+    public void addStudent(Student student){
+        this.studentObj.addStudent(studentID);
+        }//end of addStudent
     // A method to withdraw a student
-    public void dropStudent(Integer studentID){}//end of dropStudent
-
+    public int dropStudent(Integer studentID){
+    for(int i = 0; i < Student.size(); i++){
+        if(Student.get(i) == this.studentID){
+         this.studentObj.dropStudent(studentID);
+        return 1;
+        } else {return -1;}//-1 indicates the search failed to find studentID
+    }
+    }//end of dropStudent
     //A method to assign a grade to a student
-    public void gradeStudent(Integer studentID, int grade){}//end of dropStudent
+    public void gradeStudent(Integer studentID, int grade){
+        for(int i = 0; i < Student.size(); i++){
+            if(Student.get(i) == this.studentID){
+            this.studentObj.getGrade = grade;
+            } else {}//else do nothing
+        }
+    }//end of dropStudent
 
 ///////End of Student Setters/////////
 
@@ -176,8 +197,9 @@ public class ClassSection{
         return this.courseNumber ;  }
        public Integer getCapacity(){
         return this.capacity ;  }
+        //Change the getEnrollment method of the class section class to return the number of enrollees in the ArrayList by invoking its size method.
        public Integer getEnrollment(){
-        return this.enrollment ;  }
+        return Student.size();  }
        public Integer getInstructorID(){
         return this.instructorID ;  }
        public String getMode(){
@@ -195,7 +217,11 @@ public class ClassSection{
 ///////Start of Student Getters///////
 //A method to locate the ArrayList element which holds (actually points to) the 
 //enrollee object that has a particular student ID
-    public Integer getStudentID(){
+    public Integer getStudent(Integer studentID){
+        for(int i = 0; i < Student.size(); i++){
+            if(Student.get(i) == this.studentID){
+                return this.studentObj.getStudent(studentID);//Does he want the index number and no t the ID?
+            } else {return -1;}//-1 indicates the search failed to find studentID
     return this.studentID ;  }
 
    // A method to display a list of enrollees
