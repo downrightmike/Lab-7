@@ -5,6 +5,9 @@
 * 
 * 
 ********************************************************************************************************************/
+import java.util.List; //.ArrayList;
+import java.util.ArrayList;
+
 public class Student{
     private Integer studentID;
     private int grade; // GPA range from 0 to 4
@@ -41,10 +44,10 @@ public int getGrade(){
         StringBuffer strBuf = new StringBuffer("Student Data: \n");
         
         strBuf.append("***********************************\n");
-        strBuf.append("Student ID :                 ");
+        strBuf.append("Student ID :          ");
         strBuf.append(this.studentID) ;
         strBuf.append( "\n\n") ;    
-        strBuf.append("Grade :          ");
+        strBuf.append("Grade :               ");
         strBuf.append(this.grade) ;
         strBuf.append( "\n\n") ;    
 

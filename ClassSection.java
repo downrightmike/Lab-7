@@ -5,7 +5,8 @@
 * 
 * 
 ********************************************************************************************************************/
-        
+import java.util.List; //.ArrayList;
+import java.util.ArrayList;        
 public class ClassSection{
     private Integer CRN;
     private Integer courseNumber;
@@ -17,10 +18,12 @@ public class ClassSection{
     private String departmentCode;
     private String meetingDays;
     private String meetingTimes;
+
     //add an ArrayList of student enrollees to the class section class.
-    private List<Student> studentList = new ArrayList<Student>();
+    private ArrayList<Student> studentList;
+
     //Add Student object
-    private Student studentobj;
+    private Student studentObj;
 
     public ClassSection(){ 
         //System.out.println("\nIn ClassSection() default constructor"); // Just to show we're here.
@@ -35,8 +38,24 @@ public class ClassSection{
     this.meetingDays = "";
     this.meetingTimes = "";
     //Add student object
-    studentObj = new Student();
+    studentList = new ArrayList<Student>();
     }
+        //create an instance of a ClassSection class that accepts hard coded values for all parameters.
+        public ClassSection(Integer newCRN, Integer newCourseNumber, Integer newCapacity, Integer newEnrollment, Integer newInstructorID, String newMode, String newCampus, String newDepartmentCode, String newMeetingDays, String newMeetingTimes){ 
+            //System.out.println("\nIn ClassSection() all params constructor"); // Just to show we're here.
+            this.CRN = newCRN;
+            this.courseNumber = newCourseNumber;
+            this.capacity = newCapacity;
+            this.enrollment = newEnrollment;
+            this.instructorID = newInstructorID;
+            this.mode = newMode;
+            this.campus = newCampus;
+            this.departmentCode = newDepartmentCode;
+            this.meetingDays = newMeetingDays;
+            this.meetingTimes = newMeetingTimes;
+            studentList = new ArrayList<Student>();
+
+        }
 
     //create an instance of a ClassSection class that accepts hard coded values for all parameters.
     public ClassSection(Integer newCRN, Integer newCourseNumber, Integer newCapacity, Integer newEnrollment, Integer newInstructorID, String newMode, String newCampus, String newDepartmentCode, String newMeetingDays, String newMeetingTimes, Integer studentID, int grade){ 
@@ -51,7 +70,7 @@ public class ClassSection{
         this.departmentCode = newDepartmentCode;
         this.meetingDays = newMeetingDays;
         this.meetingTimes = newMeetingTimes;
-        studentObj = new Student(studentID, grade);
+        studentList = new ArrayList<Student>();
     }
         // Define "setter" a.k.a. mutator methods.
    public void  setCRN( Integer newCRN ){
@@ -166,26 +185,49 @@ public class ClassSection{
     //A method, let’s call it addStudent, to add an individual student to the enrollee list
     //create a public addStudent method of the ClassSection class which will pass the Student 
     //object to the add method of the ArrayList class.
-    public void addStudent(Student student){
-        this.studentObj.addStudent(studentID);
-        }//end of addStudent
-    // A method to withdraw a student
-    public int dropStudent(Integer studentID){
-    for(int i = 0; i < Student.size(); i++){
-        if(Student.get(i) == this.studentID){
-         this.studentObj.dropStudent(studentID);
-        return 1;
-        } else {return -1;}//-1 indicates the search failed to find studentID
-    }
-    }//end of dropStudent
-    //A method to assign a grade to a student
-    public void gradeStudent(Integer studentID, int grade){
-        for(int i = 0; i < Student.size(); i++){
-            if(Student.get(i) == this.studentID){
-            this.studentObj.getGrade = grade;
-            } else {}//else do nothing
+    public void addStudent(Student studentObj){
+        //this.addStudent(studentID);
+        try{
+            studentList.add(studentObj);
+        } catch (NullPointerException npe){
+            System.out.println("\nThe student object is null. \n");
         }
+        }//end of addStudent
+
+    // A method to withdraw a student
+    public int dropStudent(Student studentObj){
+        int negative = -1;
+        for(int i = 0; i < studentList.size(); i++){
+            //if(this list object matches the student object
+            if(studentList.get(i) == studentObj){
+        try{
+            studentList.remove(i);
+            return studentList.indexOf(i);
+        } catch (NullPointerException npe){
+            System.out.println("\nThe student object is null. \n");
+        }
+    }// end of if
+    
+    }//end of for
+    return negative;
     }//end of dropStudent
+
+    //A method to assign a grade to a student
+    //invoke the setGrade method of the enrollee class via the object with 
+    //the index of the student whose grade you want to change. Again, you 
+    //must first find the index belonging to that student.
+    public void gradeStudent(Student studentObj, int grade){
+        for(int i = 0; i < studentList.size(); i++){
+            if(studentList.get(i) == studentObj){
+            try{
+                //this student object gets this grade
+             studentObj.setGrade(grade);
+            } catch (NullPointerException npe){
+                System.out.println("\nThe student object is null. \n");
+            }
+            } 
+        }
+    }//end of gradeStudent
 
 ///////End of Student Setters/////////
 
@@ -199,7 +241,7 @@ public class ClassSection{
         return this.capacity ;  }
         //Change the getEnrollment method of the class section class to return the number of enrollees in the ArrayList by invoking its size method.
        public Integer getEnrollment(){
-        return Student.size();  }
+        return studentList.size();  }
        public Integer getInstructorID(){
         return this.instructorID ;  }
        public String getMode(){
@@ -217,16 +259,28 @@ public class ClassSection{
 ///////Start of Student Getters///////
 //A method to locate the ArrayList element which holds (actually points to) the 
 //enrollee object that has a particular student ID
-    public Integer getStudent(Integer studentID){
-        for(int i = 0; i < Student.size(); i++){
-            if(Student.get(i) == this.studentID){
-                return this.studentObj.getStudent(studentID);//Does he want the index number and no t the ID?
-            } else {return -1;}//-1 indicates the search failed to find studentID
-    return this.studentID ;  }
+    public int getStudent(Integer studentID){
+        for(int i = 0; i < studentList.size(); i++){
+            //if the student object at this point in the array equals this studentID
+            try{
+            if(studentList.contains(studentID))
+                    return studentList.indexOf(i);
+            } catch (NullPointerException npe){
+                System.out.println("\nThe student object is null. \n");
+            }
+        } 
+        return -1;
+     }
+ 
 
    // A method to display a list of enrollees
    public void displayStudentList(){
-    return this.studentID ;  }
+    System.out.println("Enrolled Students");  
+    for(int i = 0; i < studentList.size(); i++){
+        System.out.println(studentList.get(i));
+
+    }       
+}
 ///////End of Student Getters/////////
 
 ///////toString Override//////////////
@@ -264,6 +318,13 @@ public class ClassSection{
         strBuf.append("Instructor's ID :     ");
         strBuf.append(this.instructorID) ;
         strBuf.append( "\n") ;    
+        if(studentList.size() > 0){
+            strBuf.append("Enrolled Students");
+            for(int i = 0; i < studentList.size(); i++){
+            strBuf.append(studentList.get(i));
+            strBuf.append( "\n") ;
+            }
+        }
         strBuf.append( "***********************************") ;    
         
         return strBuf.toString() ;
